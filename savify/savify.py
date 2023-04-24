@@ -77,21 +77,6 @@ class Savify:
             raise FFmpegNotInstalledError
 
         clean(self.path_holder.get_temp_dir())
-        self.check_for_updates()
-
-    def check_for_updates(self) -> None:
-        self.logger.info('Checking for updates...')
-        latest_ver = requests.get('https://api.github.com/repos/LaurenceRawlings/savify/releases/latest').json()[
-            'tag_name']
-
-        from . import __version__
-        current_ver = f'v{__version__}'
-
-        if latest_ver == current_ver:
-            self.logger.info('Savify is up to date!')
-        else:
-            self.logger.info('A new version of Savify is available, '
-                             'get the latest release here: https://github.com/LaurenceRawlings/savify/releases')
 
     def _parse_query(self, query, query_type=Type.TRACK, artist_albums: bool = False) -> list:
         result = list()
